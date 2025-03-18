@@ -78,8 +78,8 @@ resource "azurerm_linux_virtual_machine" "name" {
   resource_group_name             = data.azurerm_resource_group.saima-rg.name
   location                        = data.azurerm_resource_group.saima-rg.location
   size                            = "Standard_B1s"
-  admin_username                  = "docker"
-  admin_password                  = "Docker@12345"
+  admin_username                  = " " #username
+  admin_password                  = " " #password
   network_interface_ids           = [azurerm_network_interface.nic1[count.index].id]
   disable_password_authentication = "false"
   os_disk {
@@ -119,8 +119,8 @@ resource "azurerm_linux_virtual_machine" "name" {
   }
   connection {
     type     = "ssh"
-    user     = "docker"
-    password = "Docker@12345"
+    user     =  " " #username
+    password =  " " #password
     host     = self.public_ip_address
     timeout  = "3m"
   }
