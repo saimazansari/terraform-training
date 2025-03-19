@@ -1,10 +1,17 @@
+# Sentinel Policy: Require tags on all resources
+ 
 import "tfplan/v2" as tfplan
-
-main = rule {
-  all tfplan.resource_changes as _, resource_changes {
-    resource_changes.type is "azurerm_resource_group" // Or any other resource type
-    all resource_changes.change.after.tags as tag_key, tag_value {
-      tag_key in ["owner"] // Required tags
+ 
+# Check if all resources have tags
+all_resources_have_tags = rule {
+    all tfplan.resources as resource_type, instances {
+        all instances as instance {
+            instance.applied contains "tags"
+        }
     }
-  }
+}
+ 
+# Main rule
+main = rule {
+    all_resources_have_tags
 }
