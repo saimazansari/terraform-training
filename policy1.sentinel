@@ -1,0 +1,10 @@
+import "tfplan/v2" as tfplan
+
+main = rule {
+  all tfplan.resource_changes as _, resource_changes {
+    resource_changes.type is "azurerm_resource_group" // Or any other resource type
+    all resource_changes.change.after.tags as tag_key, tag_value {
+      tag_key in ["owner"] // Required tags
+    }
+  }
+}
