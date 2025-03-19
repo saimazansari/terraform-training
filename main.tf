@@ -19,3 +19,8 @@ resource "azurerm_virtual_network" "vnet2" {
   resource_group_name = azurerm_resource_group.saima-rg.name
   
 }
+
+tags = {
+Environment = "Prod"
+Owner = "Dev"
+}
